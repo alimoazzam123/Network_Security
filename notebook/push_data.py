@@ -8,16 +8,14 @@ import pymongo
 from src.exception import MyException
 from src.logger import logging
 from dotenv import load_dotenv
-
-load_dotenv()
-MONGO_DB_URI=os.getenv("MONGO_DB_URI")
+from src.constants import *
 
 ca=certifi.where()
 
 class MongoDBClient:
     def __init__(self, database_name, collection_name):
         try:
-            self.client = pymongo.MongoClient(MONGO_DB_URI, tlsCAFile=ca)
+            self.client = pymongo.MongoClient(MONGODB_URL_KEY, tlsCAFile=ca)
             self.database = self.client[database_name]
             self.collection = self.database[collection_name]
         except Exception as e:
@@ -41,7 +39,7 @@ if __name__=='__main__':
         data = pd.read_csv('notebook/phisingData.csv')
         
         # Create MongoDB client
-        mongo_client = MongoDBClient(database_name='Network-Security', collection_name='Phising-Data')
+        mongo_client = MongoDBClient(DATABASE_NAME, COLLECTION_NAME)
         
         # Insert data into MongoDB
         mongo_client.insert_data(data)
