@@ -34,6 +34,10 @@ class DataIngestion:
             my_data = Proj1Data()
             dataframe = my_data.export_collection_as_dataframe(collection_name=
                                                                    self.data_ingestion_config.collection_name)
+            
+            # Drop the _id column if it exists
+            if '_id' in dataframe.columns:
+                dataframe = dataframe.drop(columns=['_id'])
             logging.info(f"Shape of dataframe: {dataframe.shape}")
             feature_store_file_path  = self.data_ingestion_config.feature_store_file_path
             dir_path = os.path.dirname(feature_store_file_path)

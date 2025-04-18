@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from dotenv import load_dotenv
 from datetime import date
 load_dotenv()
@@ -12,7 +13,7 @@ ARTIFACT_DIR: str = "artifact"
 
 MODEL_FILE_NAME = "model.pkl"
 
-TARGET_COLUMN = "Response"
+TARGET_COLUMN = "Result"
 CURRENT_YEAR = date.today().year
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 
@@ -41,7 +42,10 @@ DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.25
 Data Validation realted contant start with DATA_VALIDATION VAR NAME
 """
 DATA_VALIDATION_DIR_NAME: str = "data_validation"
-DATA_VALIDATION_REPORT_FILE_NAME: str = "report.yaml"
+DATA_VALIDATION_VALID_DIR: str = "validated"
+DATA_VALIDATION_INVALID_DIR: str = "invalid"
+DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report"
+DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report. yaml"
 
 """
 Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME
@@ -49,6 +53,13 @@ Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
 DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+
+## knn imputer to replace nan values
+DATA_TRANSFORMATION_IMPUTER_PARAMS: dict ={
+   "missing_values": np.nan,
+   "n_neighbors":3,
+   "weights":"uniform",
+}
 
 """
 MODEL TRAINER related constant start with MODEL_TRAINER var name
